@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+DOJ's Simple Dictionary
+{% endblock title %}
+
+
+
+{% block content %}
+{% include "header.html" %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-info bg-dark text-center">Smple Dictionary App</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/find" class="form-group">
+                
+                <div class="row">
+                    <div class="col-md-10">
+                        <input id="search_box" type="text" class="form-control text-center size-25" name="user_input" placeholder="Enter Word you want to Search... Example: DOJ" required autocomplete="off" onclick="inputField()">
+                    </div>
+
+                    <div class="col-md-2">
+                        <input class="btn btn-info form-control" type="submit" value="Search" name="btn_submit" onc>
+
+                    </div>
+                </div>
+
+                <h1 id="word" onclick="copy()" class="text-capitalize text-primary">{{user_input}} :</h1>
+              
+                
+                {% if "Please select the correct word by clicking it" in word %}
+                    <h3 class="text-dark caret">Suggested Words:</h3>
+                    <h4 id="suggest" onclick="wordSuggest0()" class="text-primary">{{suggestions[0]}}</h4>
+                    <h4 id="suggest" onclick="wordSuggest1()" class="text-primary">{{suggestions[1]}}</h4>
+                    <h4 id="suggest" onclick="wordSuggest2()" class="text-primary">{{suggestions[2]}}</h4>
+                {% endif %}
+                    
+
+                {% if type == list %}
+                
+                {% for items in word  %}
+                  <h5 >{{items}}</h5>
+                {% endfor %}
+
+                {% endif %}
+                
+                
+                {% if type == str %}
+                    <h4>{{word}}</h4>
+                {% endif %}
+                    
+                    
+
+            </form>
+        </div>
+    </div>
+
+
+{% include "footer.html" %}
+
+</div>
+
+<script>
+
+    function copy(){
+
+        //document.getElementById("search_box").value = document.getElementById("suggest").value;
+        //document.getElementById("search_box").style.color = "red";
+        document.getElementById("search_box").value = '{{user_input}}';
+        document.getElementById("search_box").style.color="green";      
+    }
+
+    function wordSuggest0(){
+
+        document.getElementById("search_box").value = '{{suggestions[0]}}'; 
+        document.getElementById("search_box").style.color="red";      
+    }
+
+    function wordSuggest1(){
+
+        document.getElementById("search_box").value = '{{suggestions[1]}}';  
+        document.getElementById("search_box").style.color="red";      
+   
+    }
+
+    function wordSuggest2(){
+
+        document.getElementById("search_box").value = '{{suggestions[2]}}';
+        document.getElementById("search_box").style.color="red";      
+    }
+
+    function inputField(){
+        document.getElementById("search_box").style.color="#495057";
+        document.getElementById("search_box").style.fontSize="20px";
+    }
+
+</script>
+
+{% endblock content %}
